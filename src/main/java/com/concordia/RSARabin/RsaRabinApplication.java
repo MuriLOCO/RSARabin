@@ -30,7 +30,7 @@ public class RsaRabinApplication {
     RSAUtils.isEValid(e, phiN);
     BigInteger gcd = e.gcd(phiN);
     System.out.println("GCD between e and Φ(n) is: " + gcd);
-    if (!gcd.equals(new BigInteger("1")))
+    if (gcd.equals(new BigInteger("1")))
       throw new Exception("GCD between e and Φ(n) must be 1");
 
     BigInteger message = new BigInteger(GeneralUtils.getUserResponse("Please select a message: "));
