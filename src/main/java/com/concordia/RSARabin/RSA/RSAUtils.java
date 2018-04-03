@@ -1,6 +1,8 @@
 package com.concordia.RSARabin.RSA;
 
 import java.math.BigInteger;
+import java.util.Random;
+import java.util.function.Predicate;
 
 public class RSAUtils {
 
@@ -35,16 +37,9 @@ public class RSAUtils {
     return p.subtract(new BigInteger("1")).multiply(q.subtract(new BigInteger("1")));
   }
 
-  /**
-   * Checks if e is a valid number
-   * @param e - Chosen e
-   * @param phiN - Φ(n)
-   * @return true if valid, false if not valid
-   * @throws Exception
-   */
-  public static boolean isEValid(BigInteger e, BigInteger phiN) throws Exception {
-    int resultCompareOne = e.compareTo(new BigInteger("1"));
-    int resultComparePhiN = e.compareTo(phiN);
-    return resultCompareOne == 1 && resultComparePhiN == -1;
+  public static BigInteger generateRandomNumberWithCondition(int lengh, Predicate<BigInteger> predicate) {
+    Random rand = new Random();
+    BigInteger randomNumber = new BigInteger(lengh, rand);
+    return predicate.test(randomNumber) ? randomNumber : generateRandomNumberWithCondition(lengh, predicate);
   }
 }
