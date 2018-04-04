@@ -1,11 +1,29 @@
-package com.concordia.RSARabin.RSA;
+package com.concordia.RSARabin.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class RSAUtils {
-
+public class Utils {
+	
+  /**
+  * Gets the user response according with the message input
+  * @param systemMessage - Message chose to show as System Message
+  * @return Response of user in String format
+  */
+  public static String getUserResponse(String systemMessage) {
+	 try {
+		 System.out.print(systemMessage);
+	     InputStreamReader streamReadeText = new InputStreamReader(System.in);
+	     BufferedReader bufferedReaderText = new BufferedReader(streamReadeText);
+	     return bufferedReaderText.readLine();
+	 } catch (IOException e) {
+	     throw new RuntimeException();
+	  }
+	}
   /**
    * Method to compute the N
    * @param p - Prime number p
@@ -42,4 +60,12 @@ public class RSAUtils {
     BigInteger randomNumber = new BigInteger(lengh, rand);
     return predicate.test(randomNumber) ? randomNumber : generateRandomNumberWithCondition(lengh, predicate);
   }
-}
+  
+  public static String transformToUnicode(String text) {
+	  StringBuffer buffer = new StringBuffer();  
+	  for (int i = 0; i < text.length(); i++) {	       
+	        buffer.append((int) text.charAt(i));
+	    }
+	  return buffer.toString();
+  }
+ }
